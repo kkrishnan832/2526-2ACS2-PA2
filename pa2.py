@@ -14,8 +14,13 @@ You should at minimum edit the helper functions.
 You may not necessarily have to edit the main function.
 '''
 
-def play_quiz(filename):
-    print(f"play_quiz function called with {filename}")
+def play_quiz(file_url):
+    print(f"play_quiz function called with {file_url}")
+    my_quiz = open(file_url)
+    line = my_quiz.readline()
+    while line != ",":
+        line = my_quiz.readline()
+    print(line)
 
 
 def show_scores():
@@ -46,31 +51,31 @@ def main():
     while game_on:
         print("welcome to the review game")
         
-        while first_choice not in e_options:
+        while first_choice not in e_options: #first runs bc first choice is empty string, then bc not exiting
             for item in initial_choices:
-                print(f"- {item}")
+                print(f"- {item}") #print options
             first_choice = input("what would you like to do?\n> ").lower().strip()
-            if first_choice in p_options:
-                quiz_fn = input("what is the name of your file?\n> ").lower().strip()
-                quiz_ext = input("is it a .txt or .csv file?\n> ").lower().strip()
+            if first_choice in p_options: #playing
+                quiz_fn = input("what is the name of your file?\n> ").lower().strip() 
+                quiz_ext = input("is it a .txt or .csv file?\n> ").lower().strip() #ask file name
                 while quiz_ext not in file_types:
-                    print_error()
+                    print_error() 
                     print("your choices are:")
-                    for item in file_types:
+                    for item in file_types: #if file type isn't csv or txt, print options and try again
                         print(f"- {item}")
                     quiz_ext = input("is it a .txt or .csv file?\n> ").lower().strip()
-                if quiz_ext in [".csv","csv"]:
-                    file_url = quiz_fn+".csv"
+                if quiz_ext in [".csv","csv"]: #if csv
+                    file_url = quiz_fn+".csv" 
                 else:
-                    file_url = quiz_fn+".txt"
+                    file_url = quiz_fn+".txt" #if txt
                 play_quiz(file_url)
                 add_scores()
-            elif first_choice in h_options:
+            elif first_choice in h_options: #history
                 show_scores()
-            elif first_choice in e_options:
+            elif first_choice in e_options:#exit
                 game_on = False
             else:
-                print_error()
+                print_error() #error
         
         print("goodbye!")
 
