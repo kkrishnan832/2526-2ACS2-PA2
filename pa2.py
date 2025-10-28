@@ -15,20 +15,26 @@ You may not necessarily have to edit the main function.
 '''
 
 def play_quiz(file_url):
+    score = 0
     print(f"play_quiz function called with {file_url}")
-    my_quiz = open(file_url)
+    my_quiz = open(file_url, 'r')
     line = my_quiz.readline()
     while line.strip() != ",":
         line = my_quiz.readline()
     print(line)
+    user_answer = input("\nAnswer: ")
+    if user_answer == "" #what comes after comma/real answer
+        print("Good job!")
+        score =+ 1
+    else
+        print("So close! The answer was {line[3]}") #first three lines of file
 
-
-def show_scores(): #this is what i need help with
+def show_scores(): #this is what i need help with, how do i store stuff??
     print("shows_scores function called")
     
 
-def add_scores():
-    print("add_scores function called")
+def add_scores(new_score):
+    print("add_scores function called with score to add as a parameter")
     username = input("What is your username?")
     username == "" #store under whatever i'm using in history
 
@@ -70,8 +76,8 @@ def main():
                     file_url = quiz_fn+".csv" 
                 else:
                     file_url = quiz_fn+".txt" #if txt
-                play_quiz(file_url)
-                add_scores()
+                user_score = play_quiz(file_url) #int score
+                add_scores(user_score)
             elif first_choice in h_options: #history
                 show_scores()
             elif first_choice in e_options:#exit
