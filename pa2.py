@@ -18,17 +18,19 @@ def play_quiz(file_url):
     print(f"play_quiz function called with {file_url}")
     my_quiz = open(file_url)
     line = my_quiz.readline()
-    while line != ",":
+    while line.strip() != ",":
         line = my_quiz.readline()
     print(line)
 
 
-def show_scores():
+def show_scores(): #this is what i need help with
     print("shows_scores function called")
     
 
 def add_scores():
     print("add_scores function called")
+    username = input("What is your username?")
+    username == "" #store under whatever i'm using in history
 
 
 def print_error():
