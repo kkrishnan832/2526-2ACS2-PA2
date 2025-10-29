@@ -17,26 +17,41 @@ You may not necessarily have to edit the main function.
 def play_quiz(file_url):
     score = 0
     print(f"play_quiz function called with {file_url}")
+
     my_quiz = open(file_url, 'r')
     line = my_quiz.readline()
-    while line.strip() != ",":
-        line = my_quiz.readline()
-    print(line)
-    user_answer = input("\nAnswer: ")
-    if user_answer == "" #what comes after comma/real answer
-        print("Good job!")
-        score =+ 1
-    else
-        print("So close! The answer was {line[3]}") #first three lines of file
+    for line in my_quiz:
+        if ',' in line: # split the line at the first comma
+            answers_list = line.strip().split(',')
+            if len(answers_list) > 1:
+                print(f"{answers_list[1]}")
+                user_answer = input("answer: ")
+                if user_answer in answers_list:
+                    index = answers_list.index(user_answer)
+                    correct_answer = (answers_list[index - 1])
+                    if user_answer == correct_answer:
+                        print("Good job!")
+                        score += 1
+                    else:
+                        print(f"So close! The answer was {correct_answer}") 
+                        score += 0
+        else:
+            print("Comma found, but nothing after it.")
+            break
 
-def show_scores(): #this is what i need help with, how do i store stuff??
+    my_quiz.close()    
+    return score    
+
+def show_scores(): 
     print("shows_scores function called")
-    
+    print("Your score was {score}!")
 
-def add_scores(new_score):
+def add_scores(score):
     print("add_scores function called with score to add as a parameter")
     username = input("What is your username?")
-    username == "" #store under whatever i'm using in history
+    leaderboard = open("scores.txt", "a")
+    leaderboard.write(f"\n{username}: {score}\n")
+    leaderboard.close()
 
 
 def print_error():
@@ -84,7 +99,7 @@ def main():
                 game_on = False
             else:
                 print_error() #error
-        
+
         print("goodbye!")
 
 main()
